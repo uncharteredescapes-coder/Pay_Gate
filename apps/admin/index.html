@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script>
+      (function () {
+        if (typeof window === 'undefined') return;
+        var NativeWebSocket = window.WebSocket;
+        if (NativeWebSocket) {
+          var ViteHmrWebSocket = function (url, protocols) {
+            var isHmr = protocols === 'vite-hmr' || (typeof url === 'string' && (url.indexOf('vite-hmr') !== -1 || url.indexOf('token=') !== -1));
+            if (isHmr) {
+              var listeners = {};
+              return {
+                readyState: 1,
+                OPEN: 1,
+                CLOSED: 3,
+                CLOSING: 2,
+                CONNECTING: 0,
+                send: function () {},
+                close: function () {},
+                addEventListener: function (event, handler) {
+                  if (!listeners[event]) listeners[event] = [];
+                  listeners[event].push(handler);
+                  if (event === 'open') setTimeout(function () { try { handler(new Event('open')); } catch (e) {} }, 0);
+                },
+                removeEventListener: function (event, handler) {
+                  if (!listeners[event]) return;
+                  listeners[event] = listeners[event].filter(function (h) { return h !== handler; });
+                },
+                dispatchEvent: function () { return true; }
+              };
+            }
+            return new NativeWebSocket(url, protocols);
+          };
+          ViteHmrWebSocket.prototype = NativeWebSocket.prototype;
+          ViteHmrWebSocket.CONNECTING = 0;
+          ViteHmrWebSocket.OPEN = 1;
+          ViteHmrWebSocket.CLOSING = 2;
+          ViteHmrWebSocket.CLOSED = 3;
+          window.WebSocket = ViteHmrWebSocket;
+        }
+        var isWsError = function (err) {
+          if (!err) return false;
+          var str = typeof err === 'string' ? err : (err.message || '') + ' ' + (err.stack || '');
+          return str.indexOf('WebSocket') !== -1 || str.indexOf('@vite/client') !== -1 || str.indexOf('vite-hmr') !== -1;
+        };
+        window.addEventListener('error', function (e) { if (isWsError(e.error) || isWsError(e.message)) { e.stopImmediatePropagation(); e.preventDefault(); return true; } }, true);
+        window.addEventListener('unhandledrejection', function (e) { if (isWsError(e.reason)) { e.stopImmediatePropagation(); e.preventDefault(); return true; } }, true);
+        var orig = console.error;
+        console.error = function () {
+          for (var i = 0; i < arguments.length; i++) {
+            if (isWsError(arguments[i]) || (typeof arguments[i] === 'string' && arguments[i].indexOf('[vite]') !== -1 && isWsError(arguments[i + 1]))) return;
+          }
+          orig.apply(console, arguments);
+        };
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>PayGate Operations Console — Admin MFA & SSO</title>
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

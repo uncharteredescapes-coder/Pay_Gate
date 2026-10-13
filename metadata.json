@@ -1,0 +1,8 @@
+{
+  "name": "Remix Remix Remix Remix Remix PayGate Merchant",
+  "description": "Bangladeshi payment gateway platform for bKash, Nagad, and Rocket with fleet SMS matching engine, Gate UI design system, double-entry ledger, and merchant developer tools.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

@@ -1,0 +1,44 @@
+name: PayGate CI/CD Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Typecheck & Lint
+        run: npm run lint
+
+      - name: Run Domain Unit Tests
+        run: npx tsx scripts/run-tests.ts
+
+      - name: Build All Monorepo Artifacts
+        run: npm run build
+
+  deploy-services:
+    needs: validate-and-test
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy API Service to Cloud Run
+        run: echo "Deploying api.example.com container..."
+
+      - name: Deploy Merchant Portal to Static Edge
+        run: echo "Deploying merchant.example.com to Cloudflare/Firebase Hosting..."
+
+      - name: Deploy Hosted Checkout Page to Edge
+        run: echo "Deploying pay.example.com to Edge..."

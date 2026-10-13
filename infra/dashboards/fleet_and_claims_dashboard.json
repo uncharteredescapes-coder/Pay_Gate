@@ -1,0 +1,26 @@
+{
+  "title": "PayGate MFS Fleet & Claims Production Dashboard",
+  "timezone": "browser",
+  "panels": [
+    {
+      "title": "Handset Fleet Latency (ms)",
+      "type": "timeseries",
+      "targets": [{ "expr": "rate(paygate_device_heartbeat_latency_ms[5m])" }]
+    },
+    {
+      "title": "Atomic Payment Match Success Rate",
+      "type": "gauge",
+      "targets": [{ "expr": "sum(rate(paygate_claims_matched_total[5m])) / sum(rate(paygate_claims_total[5m])) * 100" }]
+    },
+    {
+      "title": "Quarantined SMS Count by Provider",
+      "type": "barchart",
+      "targets": [{ "expr": "sum by (provider) (paygate_quarantined_sms_total)" }]
+    },
+    {
+      "title": "Webhook Outbox Delivery Backlog",
+      "type": "stat",
+      "targets": [{ "expr": "paygate_outbox_pending_count" }]
+    }
+  ]
+}

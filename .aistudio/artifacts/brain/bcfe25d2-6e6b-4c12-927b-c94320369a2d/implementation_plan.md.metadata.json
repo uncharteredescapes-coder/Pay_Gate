@@ -1,0 +1,6 @@
+{
+  "summary": "Migration plan to move all Gate UI design system primitives, composite drawers, and shared layout components from src/components into packages/ui while maintaining zero-breakage backward compatibility re-exports.",
+  "updatedAt": "2026-10-13T19:43:01.310840453Z",
+  "requestFeedback": true,
+  "userFacing": true
+}

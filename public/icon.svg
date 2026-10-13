@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="pgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#5B5BF0" />
+      <stop offset="100%" stop-color="#3D3DC7" />
+    </linearGradient>
+  </defs>
+  <!-- Background with safe zone -->
+  <rect width="512" height="512" rx="112" fill="#0E0E11" />
+  <!-- Accent Gate Shield -->
+  <rect x="76" y="76" width="360" height="360" rx="72" fill="#141418" stroke="#2A2A31" stroke-width="4" />
+  <!-- Monogram PG -->
+  <path d="M160 160 H260 C293 160 320 187 320 220 C320 253 293 280 260 280 H204 V352 H160 V160 Z M204 200 V240 H256 C267 240 276 231 276 220 C276 209 267 200 256 200 H204 Z" fill="url(#pgGradient)" />
+  <path d="M300 290 H352 V320 C352 337.6 337.6 352 320 352 H260 C242.4 352 228 337.6 228 320 V300 H268 V316 H312 V290 Z" fill="#F5F5F7" opacity="0.9" />
+  <!-- Live Signal Dot -->
+  <circle cx="360" cy="152" r="16" fill="#12B76A" />
+</svg>

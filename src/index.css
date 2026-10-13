@@ -1,0 +1,100 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg: #FAFAF9;
+    --surface: #FFFFFF;
+    --surface-2: #F4F4F2;
+    --border: #E7E7E3;
+    --ink: #0E0E11;
+    --ink-2: #55555E;
+    --ink-3: #8A8A94;
+    --accent: #5B5BF0;
+    --accent-soft: #EEEEFF;
+    --success: #12B76A;
+    --warning: #F79009;
+    --danger: #F04438;
+
+    --bkash: #E2136E;
+    --nagad: #F6921E;
+    --rocket: #8C3494;
+    --upay: #FF5B00;
+    --cellfin: #008A44;
+  }
+
+  .dark {
+    --bg: #0B0B0E;
+    --surface: #141418;
+    --surface-2: #1C1C22;
+    --border: #2A2A31;
+    --ink: #F5F5F7;
+    --ink-2: #A4A4AE;
+    --ink-3: #6F6F7A;
+    --accent: #8B8BFF;
+    --accent-soft: #23234A;
+    --success: #32D583;
+    --warning: #FDB022;
+    --danger: #F97066;
+
+    --bkash: #E2136E;
+    --nagad: #F6921E;
+    --rocket: #8C3494;
+    --upay: #FF6E1A;
+    --cellfin: #10B981;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+  }
+
+  /* Bengali typography enhancement (+10% line height for glyph legibility) */
+  .lang-bn, [lang="bn"], .font-bengali {
+    font-family: 'Noto Sans Bengali', system-ui, sans-serif;
+    line-height: 1.65;
+  }
+
+  .font-mono, [data-font="mono"] {
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* Custom scrollbars matching Gate UI */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ink-3);
+}
+
+@keyframes indeterminate {
+  0% {
+    transform: translateX(-100%);
+    width: 30%;
+  }
+  50% {
+    transform: translateX(100%);
+    width: 60%;
+  }
+  100% {
+    transform: translateX(300%);
+    width: 30%;
+  }
+}
+
+.animate-indeterminate {
+  animation: indeterminate 1.5s infinite ease-in-out;
+}
